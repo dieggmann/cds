@@ -116,6 +116,42 @@
       .hidden {
         display: none;
       }
+      /* Cabeceras fijas al hacer scroll */
+      .cabecera-fija {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #111827;
+        margin: -16px -16px 0;
+        padding: 16px 16px 8px;
+        border-bottom: 1px solid #374151;
+      }
+      .cabecera-fija h1 {
+        margin: 8px 0 12px;
+      }
+      .cabecera-fija #buscar {
+        margin-bottom: 0;
+      }
+      .cabecera-fija #back {
+        margin-bottom: 8px;
+      }
+      /* Vista de canciones: título a la izquierda, botón a la derecha */
+      #detalle .cabecera-fija {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 12px;
+      }
+      #detalle .cabecera-fija h1 {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+      }
+      #detalle .cabecera-fija #back {
+        flex: none;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -131,6 +167,7 @@
         {
           titulo: "Máis contos en cantos",
           artista: "Almudena Janeiro",
+          favorito: true,
           pistas: [
             "Chocolata",
             "A mellor sopa do mundo",
@@ -150,6 +187,7 @@
         {
           titulo: "Te, Chocolate, Cafe",
           artista: "Golfiños",
+          favorito: true,
           pistas: [
             "Bo día",
             "Té, chocolate, café",
@@ -189,6 +227,7 @@
         {
           titulo: "Gatuxo",
           artista: "Magín Blanco",
+          favorito: true,
           pistas: [
             "Tambor",
             "Din don",
@@ -251,6 +290,7 @@
         {
           titulo: "Cantar e bailar para ser máis feliz",
           artista: "María Fumaça",
+          favorito: true,
           pistas: [
             "Alegría",
             "Que é o que ten a sopa do Nené",
@@ -323,6 +363,7 @@
         {
           titulo: "Ola, Ola, La",
           artista: "Mama Cabra",
+          favorito: true,
           pistas: [
             "Ola Paco",
             "Eu son un artista",
@@ -369,7 +410,7 @@
         },
         {
           titulo: "A Bruxa Discordia",
-          artista: "Mama Cabra e Carmen Gil",
+          artista: "Mama C. e Carmen Gil",
           pistas: [
             "Compartir é pan comido",
             "A fada Margarida",
@@ -404,7 +445,17 @@
         {
           titulo: "Todos os animais o caixón",
           artista: "Mama C. e Susa Herrera",
-          pistas: [],
+          pistas: [
+            "CD Track",
+            "CD Track",
+            "CD Track",
+            "CD Track",
+            "CD Track",
+            "CD Track",
+            "CD Track",
+            "CD Track",
+
+          ],
         },
         {
           titulo: "Pan de millo",
@@ -547,6 +598,7 @@
         {
           titulo: "Na punta do pé",
           artista: "Pesdelán",
+          favorito: true,
           pistas: [
             "O pingacho",
             "Un pasodobre",
@@ -565,6 +617,7 @@
         {
           titulo: "Uxía Lambona e a Banda Molona",
           artista: "Uxía Lambona e a Banda Molona",
+          favorito: true,
           pistas: [
             "A sinfonía de Uxía",
             "Os Oficios",
@@ -701,22 +754,25 @@
     </script>
     <!-- ============ FIN DE LA ZONA EDITABLE ============ -->
 
-    <h1>Música para Anxo</h1>
-
     <div id="principal">
-      <input
-        id="buscar"
-        type="search"
-        placeholder="Buscar artista, disco o canción…"
-        autocomplete="off"
-      />
+      <div class="cabecera-fija">
+        <h1>Música para Anxo</h1>
+        <input
+          id="buscar"
+          type="search"
+          placeholder="Buscar artista, disco o canción…"
+          autocomplete="off"
+        />
+      </div>
       <div id="lista"></div>
       <div id="sin-resultados" class="hidden">No hay resultados.</div>
     </div>
 
     <div id="detalle" class="hidden">
-      <button id="back">← Volver a los discos</button>
-      <h1 id="album-title"></h1>
+      <div class="cabecera-fija">
+        <h1 id="album-title"></h1>
+        <button id="back">← Volver a los discos</button>
+      </div>
       <div id="tracks"></div>
     </div>
 
@@ -798,8 +854,7 @@
 
       function mostrarDisco(i) {
         const disco = discos[i];
-        document.getElementById("album-title").textContent =
-          disco.artista ? disco.titulo + " — " + disco.artista : disco.titulo;
+        document.getElementById("album-title").textContent = disco.titulo;
         document.getElementById("album-title").classList.toggle("fav", !!disco.favorito);
         const tracks = document.getElementById("tracks");
         tracks.innerHTML = "";
