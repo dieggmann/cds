@@ -72,8 +72,26 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+      /* Columnas de ancho fijo: artista | disco (con puntos suspensivos si no caben) */
+      .album .nombre {
+        display: flex;
+        gap: 12px;
+      }
+      .album .artista,
+      .album .titulo {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
       .album .artista {
+        flex: none;
+        width: 38%;
         color: #9ca3af;
+      }
+      .album .titulo {
+        flex: 1;
+        min-width: 0;
       }
       .album.fav .titulo {
         color: #fbbf24;
@@ -167,7 +185,7 @@
         {
           titulo: "Máis contos en cantos",
           artista: "Almudena Janeiro",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "Chocolata",
             "A mellor sopa do mundo",
@@ -187,7 +205,7 @@
         {
           titulo: "Te, Chocolate, Cafe",
           artista: "Golfiños",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "Bo día",
             "Té, chocolate, café",
@@ -227,7 +245,7 @@
         {
           titulo: "Gatuxo",
           artista: "Magín Blanco",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "Tambor",
             "Din don",
@@ -290,7 +308,7 @@
         {
           titulo: "Cantar e bailar para ser máis feliz",
           artista: "María Fumaça",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "Alegría",
             "Que é o que ten a sopa do Nené",
@@ -363,7 +381,7 @@
         {
           titulo: "Ola, Ola, La",
           artista: "Mama Cabra",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "Ola Paco",
             "Eu son un artista",
@@ -446,16 +464,16 @@
           titulo: "Todos os animais o caixón",
           artista: "Mama C. e Susa Herrera",
           pistas: [
-            "CD Track",
-            "CD Track",
-            "CD Track",
-            "CD Track",
-            "CD Track",
-            "CD Track",
-            "CD Track",
-            "CD Track",
+		    "CD Track",
+			"CD Track",
+			"CD Track",
+			"CD Track",
+			"CD Track",
+			"CD Track",
+			"CD Track",
+			"CD Track",
 
-          ],
+		  ],
         },
         {
           titulo: "Pan de millo",
@@ -598,7 +616,7 @@
         {
           titulo: "Na punta do pé",
           artista: "Pesdelán",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "O pingacho",
             "Un pasodobre",
@@ -617,7 +635,7 @@
         {
           titulo: "Uxía Lambona e a Banda Molona",
           artista: "Uxía Lambona e a Banda Molona",
-          favorito: true,
+		  favorito: true,
           pistas: [
             "A sinfonía de Uxía",
             "Os Oficios",
@@ -825,12 +843,10 @@
           txt.className = "txt";
           const nombre = document.createElement("span");
           nombre.className = "nombre";
-          if (disco.artista) {
-            const art = document.createElement("span");
-            art.className = "artista";
-            art.textContent = disco.artista + " - ";
-            nombre.appendChild(art);
-          }
+          const art = document.createElement("span");
+          art.className = "artista";
+          art.textContent = disco.artista || "";
+          nombre.appendChild(art);
           const tit = document.createElement("span");
           tit.className = "titulo";
           tit.textContent = disco.titulo;
